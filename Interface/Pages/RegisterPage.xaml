@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Interface.Pages.RegisterPage"
+             Title="RegisterPage">
+    <VerticalStackLayout>
+        <Grid>
+            <VerticalStackLayout 
+                Padding="5"
+                VerticalOptions="Center"
+                Grid.Column="0">
+
+                <Label
+                    Margin="14"
+                    Text="Придумайте логин:"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="14"
+                    HorizontalOptions="Center" />
+                <Entry
+                    Margin="2"
+                    x:Name="loginEntry"
+                    Placeholder="Введите логин"
+                    MaxLength="50"/>
+                <Label
+                    Margin="14"
+                    Text="Придумайте пароль:"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="14"
+                    HorizontalOptions="Center" />
+                <Entry
+                    Margin="2"
+                    x:Name="registerEntry"
+                    Placeholder="Введите пароль"
+                    IsPassword="True"
+                    MaxLength="50"/>
+                <Button
+                    Grid.Column="0"
+                    Margin="2"
+                    x:Name="registerButton"
+                    Text="Создать аккаунт"
+                    Clicked="Register_Click"/>
+
+            </VerticalStackLayout>
+
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Interface.Pages.Advertise"
+             Title="Advertise">
+
+    <VerticalStackLayout>
+        <Grid>
+
+            <VerticalStackLayout 
+                Padding="5"
+                VerticalOptions="Center"
+                Grid.Column="0">
+
+                <Label
+                    Margin="14"
+                    Text="Введите название автомобиля:"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="14"
+                    HorizontalOptions="Center" />
+                <Entry
+                    Margin="2"
+                    x:Name="nameEntry"
+                    Placeholder="Название автомобиля"
+                    MaxLength="50"/>
+                <Label
+                    Margin="14"
+                    Text="Введите пробег:"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="14"
+                    HorizontalOptions="Center" />
+                <Entry
+                    Margin="2"
+                    x:Name="mileAgeEntry"
+                    Placeholder="Пробег автомобиля"
+                    MaxLength="50"/>
+                <Label
+                    Margin="14"
+                    Text="Введите тип кузова:"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="14"
+                    HorizontalOptions="Center" />
+                <Entry
+                    Margin="2"
+                    x:Name="carTypeEntry"
+                    Placeholder="Тип кузова"
+                    MaxLength="50"/>
+                <Label
+                    Margin="14"
+                    Text="Введите Стоимость:"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="14"
+                    HorizontalOptions="Center" />
+                <Entry
+                    Margin="2"
+                    x:Name="priceEntry"
+                    Placeholder="Стоимость автомобиля"
+                    MaxLength="50"/>
+
+                <Button
+                    Grid.Column="1"
+                    Margin="2"
+                    x:Name="advertiseButton"
+                    Text="Разместить объявление"
+                    Clicked="Advertise_Click"/>
+
+            </VerticalStackLayout>
+
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>
