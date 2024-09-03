@@ -32,7 +32,7 @@ class GetCarData : INotifyPropertyChanged
             if (_advertisements != value)
             {
                 _advertisements = value;
-                OnPropertyChanged(); // reports this property
+                OnPropertyChanged();
             }
         }
     }
@@ -43,7 +43,7 @@ class GetCarData : INotifyPropertyChanged
 
         // Update the DateTime property every second.
         _timer = new Timer(new TimerCallback((s) => this.Advertisements = CarAdvertisements.Advertisements),
-                           null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+                           null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
     }
 
     ~GetCarData() =>

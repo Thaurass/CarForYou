@@ -12,6 +12,6 @@ public partial class Advertise : ContentPage
 
     public void Advertise_Click(object sender, EventArgs args)
     {
-        CarAdvertisements.AddAdvertisement(nameEntry.Text, priceEntry.Text, mileAgeEntry.Text, carTypeEntry.Text, "C:\\Users\\xj48v\\Burn2Code\\CarForYou\\Interface\\src\\car.jpg");
+        CarAdvertisements.AddAdvertisement(nameEntry.Text, priceEntry.Text, mileAgeEntry.Text, carTypeEntry.Text, "C:\\Users\\xj48v\\Burn2Code\\VS\\CarForYou\\Interface\\src\\car.jpg");
     }
 }
