@@ -1,6 +1,7 @@
 using AppProcessing;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace Interface.Pages;
 
@@ -17,6 +18,7 @@ public partial class Feed : ContentPage
 
 class GetCarData : INotifyPropertyChanged
 {
+    private ICommand _refreshCommand;
     public event PropertyChangedEventHandler PropertyChanged;
 
     private List<Advertisement> _advertisements { get; set; }
