@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace AppProcessing
 {
-    public class AdvertisementElement : INotifyPropertyChanged
+    public class PersonElement : INotifyPropertyChanged
     {
         string name;
-        string price;
-        string mileAge;
-        string carType; 
+        string login;
+        string password;
         int views;
-        string imageUrl = "C:\\Users\\xj48v\\Burn2Code\\VS\\CarForYou\\Interface\\src\\car.jpg";
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,22 +24,16 @@ namespace AppProcessing
             get { return name; }
         }
 
-        public string Price
+        public string Login
         {
-            set { SetProperty(ref price, value); }
-            get { return price; }
+            set { SetProperty(ref login, value); }
+            get { return login; }
         }
 
-        public string MileAge
+        public string Password
         {
-            set { SetProperty(ref mileAge, value); }
-            get { return mileAge; }
-        }
-
-        public string CarType
-        {
-            set { SetProperty(ref carType, value); }
-            get { return carType; }
+            set { SetProperty(ref password, value); }
+            get { return password; }
         }
 
         public int Views
@@ -49,15 +42,10 @@ namespace AppProcessing
             get { return views; }
         }
 
-        public string ImageUrl
-        {
-            set { SetProperty(ref imageUrl, value); }
-            get { return imageUrl; }
-        }
 
         public override string ToString()
         {
-            return Name + ", price " + Price;
+            return Name + ", views " + views;
         }
 
         bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)

@@ -5,7 +5,7 @@
              x:Class="Interface.Pages.Advertise"
              Title="Advertise">
     <ContentPage.BindingContext>
-        <local:AdvertisementElementCollectionViewModel />
+        <local:AdvertiseViewModel />
     </ContentPage.BindingContext>
     <Grid Margin="10">
         <Grid.RowDefinitions>

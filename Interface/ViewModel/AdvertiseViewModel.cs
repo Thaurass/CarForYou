@@ -6,14 +6,14 @@ using System.Windows.Input;
 
 namespace Interface.ViewModel
 {
-    internal class AdvertisementElementCollectionViewModel : INotifyPropertyChanged
+    internal class AdvertiseViewModel : INotifyPropertyChanged
     {
         AdvertisementElement carEdit;
         bool isEditing;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public AdvertisementElementCollectionViewModel()
+        public AdvertiseViewModel()
         {
             NewCommand = new Command(
                 execute: () =>
@@ -31,7 +31,7 @@ namespace Interface.ViewModel
                 execute: () =>
                 {
                     CarEdit.PropertyChanged -= OnPersonEditPropertyChanged;
-                    CarAdvertisements.Cars.Add(CarEdit);
+                    CarAdvertisements.Instance.Cars.Add(CarEdit);
                     CarEdit = null;
                     IsEditing = false;
                     RefreshCanExecutes();
@@ -89,7 +89,6 @@ namespace Interface.ViewModel
 
         public ICommand CancelCommand { private set; get; }
 
-        //public IList<AdvertisementElement> Cars { get; } = new ObservableCollection<AdvertisementElement>();
 
         bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {

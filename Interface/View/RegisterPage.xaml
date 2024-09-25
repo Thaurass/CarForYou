@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Interface.ViewModel"
              x:Class="Interface.Pages.RegisterPage"
              Title="RegisterPage">
+    <ContentPage.BindingContext>
+        <local:RegisterViewModel />
+    </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+
+            </Grid.RowDefinitions>
             <VerticalStackLayout 
                 Padding="5"
                 VerticalOptions="Center"
-                Grid.Column="0">
+                Grid.Row="0"
+                BindingContext="{Binding PersonEdit}">
 
+                <Label
+                    Margin="14"
+                    Text="Введите имя:"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="14"
+                    HorizontalOptions="Center" />
+                <Entry
+                    Margin="2"
+                    x:Name="nameEntry"
+                    Text="{Binding Name}"
+                    Placeholder="Введите имя"
+                    MaxLength="50"/>
                 <Label
                     Margin="14"
                     Text="Придумайте логин:"
@@ -19,6 +41,7 @@
                 <Entry
                     Margin="2"
                     x:Name="loginEntry"
+                    Text="{Binding Login}"
                     Placeholder="Введите логин"
                     MaxLength="50"/>
                 <Label
@@ -30,18 +53,21 @@
                 <Entry
                     Margin="2"
                     x:Name="registerEntry"
+                    Text="{Binding Password}"
                     Placeholder="Введите пароль"
                     IsPassword="True"
                     MaxLength="50"/>
-                <Button
-                    Grid.Column="0"
-                    Margin="2"
-                    x:Name="registerButton"
-                    Text="Создать аккаунт"
-                    Clicked="Register_Click"/>
+                
 
             </VerticalStackLayout>
-
+            <Button
+                Grid.Row="1"
+                Padding="5"
+                Margin="2"
+                x:Name="registerButton"
+                Text="Создать аккаунт"
+                Command="{Binding SubmitCommand}"
+                Clicked="Register_Click"/>  
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

@@ -33,10 +33,10 @@ namespace Interface.ViewModel
 
         public FeedViewModel()
         {
-            this.Advertisements = CarAdvertisements.Cars;
+            this.Advertisements = CarAdvertisements.Instance.Cars;
 
             // Update the DateTime property every second.
-            _timer = new Timer(new TimerCallback((s) => this.Advertisements = CarAdvertisements.Cars),
+            _timer = new Timer(new TimerCallback((s) => this.Advertisements = CarAdvertisements.Instance.Cars),
                                null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
         }
 
