@@ -6,7 +6,6 @@ public partial class Advertise : ContentPage
 {
     public Advertise()
 	{
-        CarAdvertisements.CreateAdvertisements();
         InitializeComponent();
 	}
 

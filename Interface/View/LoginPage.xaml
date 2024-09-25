@@ -16,7 +16,7 @@
         <Border Grid.Column = "2" Background="#1f3d7a"/>-->
             <!--<Border Grid.Column = "2" Background="#152951"/>-->
 
-            <VerticalStackLayout 
+            <VerticalStackLayout
                 Padding="5"
                 VerticalOptions="Center"
                 Grid.Column="0">

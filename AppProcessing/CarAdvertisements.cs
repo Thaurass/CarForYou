@@ -13,12 +13,17 @@ namespace AppProcessing
 
         public static bool AddAdvertisement(string name, string price, string mileAge, string carType, string imageUrl)
         {
+            if ( Advertisements == null )
+            {
+                Advertisements = new();
+            }
+
             Advertisements.Add(new Advertisement(name, price, mileAge, carType, 0, imageUrl));
 
             return true;
         }
 
-        public static void CreateAdvertisements()
+        public CarAdvertisements()
         {
             Advertisements = new();
         }
