@@ -2,10 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Interface.Pages.Feed"
-             xmlns:local="clr-namespace:Interface.Pages"
+             xmlns:local="clr-namespace:Interface.ViewModel"
              Title="Feed">
     <ContentPage.BindingContext>
-        <local:GetCarData />
+        <local:FeedViewModel />
     </ContentPage.BindingContext>
 
     <VerticalStackLayout>
@@ -15,8 +15,8 @@
             x:Name="refreshButton"
             Text="Обновить"
             Clicked="{Binding OnPropertyChanged}"/>-->
-        <RefreshView IsRefreshing="True"
-             Command="{Binding RefreshCommand}">
+        <RefreshView IsRefreshing="False"
+             Command="{Binding _refreshCommand}">
             <ListView ItemsSource="{Binding Advertisements}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

@@ -1,71 +1,75 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Interface.ViewModel"
              x:Class="Interface.Pages.Advertise"
              Title="Advertise">
+    <ContentPage.BindingContext>
+        <local:AdvertisementElementCollectionViewModel />
+    </ContentPage.BindingContext>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-    <VerticalStackLayout>
-        <Grid>
+        <!-- New Button -->
+        <Button Text="New"
+            Grid.Row="0"
+            Command="{Binding NewCommand}"
+            HorizontalOptions="Start" />
 
-            <VerticalStackLayout 
-                Padding="5"
-                VerticalOptions="Center"
-                Grid.Column="0">
+        <!-- Entry Form -->
+        <Grid Grid.Row="1"
+          IsEnabled="{Binding IsEditing}">
+            <Grid BindingContext="{Binding CarEdit}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                <Label
-                    Margin="14"
-                    Text="Введите название автомобиля:"
-                    SemanticProperties.HeadingLevel="Level1"
-                    FontSize="14"
-                    HorizontalOptions="Center" />
-                <Entry
-                    Margin="2"
-                    x:Name="nameEntry"
-                    Placeholder="Название автомобиля"
-                    MaxLength="50"/>
-                <Label
-                    Margin="14"
-                    Text="Введите пробег:"
-                    SemanticProperties.HeadingLevel="Level1"
-                    FontSize="14"
-                    HorizontalOptions="Center" />
-                <Entry
-                    Margin="2"
-                    x:Name="mileAgeEntry"
-                    Placeholder="Пробег автомобиля"
-                    MaxLength="50"/>
-                <Label
-                    Margin="14"
-                    Text="Введите тип кузова:"
-                    SemanticProperties.HeadingLevel="Level1"
-                    FontSize="14"
-                    HorizontalOptions="Center" />
-                <Entry
-                    Margin="2"
-                    x:Name="carTypeEntry"
-                    Placeholder="Тип кузова"
-                    MaxLength="50"/>
-                <Label
-                    Margin="14"
-                    Text="Введите Стоимость:"
-                    SemanticProperties.HeadingLevel="Level1"
-                    FontSize="14"
-                    HorizontalOptions="Center" />
-                <Entry
-                    Margin="2"
-                    x:Name="priceEntry"
-                    Placeholder="Стоимость автомобиля"
-                    MaxLength="50"/>
-
-                <Button
-                    Grid.Column="1"
-                    Margin="2"
-                    x:Name="advertiseButton"
-                    Text="Разместить объявление"
-                    Clicked="Advertise_Click"/>
-
-            </VerticalStackLayout>
-
+                <Label Text="Name: " Grid.Row="0" Grid.Column="0" />
+                <Entry Text="{Binding Name}" 
+                   Grid.Row="0" Grid.Column="1" />
+                <Label Text="Price: " Grid.Row="1" Grid.Column="0" />
+                <Entry Text="{Binding Price}"  
+                        Grid.Row="1" Grid.Column="1" />
+                <Label Text="MileAge: " Grid.Row="2" Grid.Column="0" />
+                <Entry Text="{Binding MileAge}"  
+                       Grid.Row="2" Grid.Column="1" />
+                <Label Text="CarType: " Grid.Row="3" Grid.Column="0" />
+                <Entry Text="{Binding CarType}"  
+                       Grid.Row="3" Grid.Column="1" />
+            </Grid>
         </Grid>
-    </VerticalStackLayout>
+
+        <!-- Submit and Cancel Buttons -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Text="Submit"
+                Grid.Column="0"
+                Command="{Binding SubmitCommand}"
+                VerticalOptions="Center" />
+            <Button Text="Cancel"
+                Grid.Column="1"
+                Command="{Binding CancelCommand}"
+                VerticalOptions="Center" />
+        </Grid>
+
+        <!-- List of Persons -->
+        <ListView Grid.Row="3"
+              ItemsSource="{Binding Cars}" />
+    </Grid>
 </ContentPage>
