@@ -9,11 +9,5 @@
             x:Name="advertise"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Button
-            Grid.Column="1"
-            Margin="2"
-            x:Name="advertiseButton"
-            Text="advertise"
-            Clicked="Advertise_Click"/>
     </VerticalStackLayout>
 </ContentPage>

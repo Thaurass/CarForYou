@@ -6,7 +6,6 @@
     xmlns:local="clr-namespace:Interface"
     Shell.FlyoutBehavior="Disabled"
     Title="Interface">
-
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:Pages.LoginPage}"

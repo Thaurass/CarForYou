@@ -7,15 +7,4 @@ public partial class RegisterPage : ContentPage
 		InitializeComponent();
 
     }
-
-    protected override bool OnBackButtonPressed() 
-    {
-        return false;
-    }
-
-
-    public async void Register_Click(object sender, EventArgs args)
-    {
-        await Navigation.PopAsync();
-    }
 }

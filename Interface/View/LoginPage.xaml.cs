@@ -8,14 +8,4 @@ public partial class LoginPage : ContentPage
 	{
 		InitializeComponent();
 	}
-
-    public async void Login_Click(object sender, EventArgs args)
-    {
-        await Navigation.PushAsync(new MainPage());
-    }
-
-    public async void Register_Click(object sender, EventArgs args)
-    {
-        await Navigation.PushAsync(new RegisterPage());
-    }
 }

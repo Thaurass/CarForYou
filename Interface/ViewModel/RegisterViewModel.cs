@@ -2,17 +2,16 @@
 using System.Runtime.CompilerServices;
 using AppProcessing;
 using System.Windows.Input;
+using Interface.Pages;
 
 namespace Interface.ViewModel
 {
     class RegisterViewModel : ViewModelBase
     {
         PersonElement personEdit;
-        ViewModelBase _viewModelBase;
 
         public RegisterViewModel()
         {
-            _viewModelBase = new();
             PersonEdit = new();
             PersonEdit.PropertyChanged += OnPersonEditPropertyChanged;
             SubmitCommand = new Command(
@@ -20,6 +19,7 @@ namespace Interface.ViewModel
                 {
                     PersonEdit.Views = 0;
                     PersonCollection.Instance.Persons.Add(PersonEdit);
+                    Shell.Current.GoToAsync("LoginPage");
                     RefreshCanExecutes();
                 },
                 canExecute: () =>
@@ -47,7 +47,7 @@ namespace Interface.ViewModel
 
         public PersonElement PersonEdit
         {
-            set { _viewModelBase.SetProperty(ref personEdit, value); }
+            set { SetProperty(ref personEdit, value); }
             get { return personEdit; }
         }
 
