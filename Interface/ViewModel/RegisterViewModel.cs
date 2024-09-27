@@ -1,6 +1,4 @@
-﻿
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AppProcessing;
 using System.Windows.Input;
@@ -16,9 +14,12 @@ namespace Interface.ViewModel
 
         public RegisterViewModel()
         {
+            PersonEdit = new();
+            PersonEdit.PropertyChanged += OnPersonEditPropertyChanged;
             SubmitCommand = new Command(
                 execute: () =>
                 {
+                    PersonEdit.Views = 0;
                     PersonCollection.Instance.Persons.Add(PersonEdit);
                     RefreshCanExecutes();
                 },
@@ -26,16 +27,23 @@ namespace Interface.ViewModel
                 {
                     return PersonEdit != null &&
                            PersonEdit.Name != null &&
-                           PersonEdit.Name.Length > 1;
+
+                           PersonEdit.Name.Length > 1 &&
+                           PersonEdit.Login != null &&
+                           PersonEdit.Password != null;
                 });
 
+        }
+
+        void OnPersonEditPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            (SubmitCommand as Command).ChangeCanExecute();
         }
 
         void RefreshCanExecutes()
         {
             (SubmitCommand as Command).ChangeCanExecute();
         }
-
 
         public PersonElement PersonEdit
         {
@@ -44,7 +52,6 @@ namespace Interface.ViewModel
         }
 
         public ICommand SubmitCommand { private set; get; }
-
 
         bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
