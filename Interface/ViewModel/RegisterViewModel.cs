@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using AppProcessing;
 using System.Windows.Input;
-using Interface.Pages;
 
 namespace Interface.ViewModel
 {
     class RegisterViewModel : ViewModelBase
     {
         PersonElement personEdit;
+        string notification;
 
         public RegisterViewModel()
         {
@@ -17,9 +16,16 @@ namespace Interface.ViewModel
             SubmitCommand = new Command(
                 execute: () =>
                 {
-                    PersonEdit.Views = 0;
-                    PersonCollection.Instance.Persons.Add(PersonEdit);
-                    Shell.Current.GoToAsync("LoginPage");
+                    if(PersonCollection.Instance.LoginIsUnique(PersonEdit.Login))
+                    {
+                        PersonEdit.Views = 0;
+                        PersonCollection.Instance.Persons.Add(PersonEdit);
+                        Notification = "Пользователь успешно зарегестрирован";
+                    } else
+                    {
+                        Notification = "Данный логин занят";
+                    }
+                    
                     RefreshCanExecutes();
                 },
                 canExecute: () =>
@@ -37,12 +43,19 @@ namespace Interface.ViewModel
 
         void OnPersonEditPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
+            Notification = "";
             (SubmitCommand as Command).ChangeCanExecute();
         }
 
         void RefreshCanExecutes()
         {
             (SubmitCommand as Command).ChangeCanExecute();
+        }
+
+        public string Notification
+        {
+            set { SetProperty(ref notification, value); }
+            get { return notification; }
         }
 
         public PersonElement PersonEdit

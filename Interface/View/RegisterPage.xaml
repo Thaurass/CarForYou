@@ -12,6 +12,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
 
             </Grid.RowDefinitions>
             <VerticalStackLayout 
@@ -66,7 +67,14 @@
                 Margin="2"
                 x:Name="registerButton"
                 Text="Создать аккаунт"
-                Command="{Binding SubmitCommand}"/>  
+                Command="{Binding SubmitCommand}"/>
+            <Label
+                Margin="14"
+                Grid.Row="2"
+                Text="{Binding Notification}"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="14"
+                HorizontalOptions="Center" />
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

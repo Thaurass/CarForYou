@@ -1,36 +1,39 @@
 ﻿using AppProcessing;
-using Interface.Pages;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Interface.ViewModel
 {
     public class LoginViewModel :ViewModelBase
     {
-        PersonElement personEdit;
+        PersonElement personLogin;
+        string notification;
 
         public LoginViewModel()
         {
-            PersonEdit = new();
-            PersonEdit.PropertyChanged += OnPersonEditPropertyChanged;
+            PersonLogin = new();
+            PersonLogin.PropertyChanged += OnPersonEditPropertyChanged;
             LoginCommand = new Command(
                 execute: () =>
                 {
-                    Shell.Current.GoToAsync("..");
+
+                    if (PersonCollection.Instance.CheckCorrectPerson(PersonLogin.Login, PersonLogin.Password))
+                    { 
+                        Shell.Current.GoToAsync("MainPage"); 
+                    } else
+                    {
+                        Notification = "Неверный логин или пароль";
+                    }
+
                     RefreshCanExecutes();
                 },
                 canExecute: () =>
                 {
-                    return PersonEdit != null &&
-                           PersonEdit.Name != null &&
-                           PersonEdit.Name.Length > 0 &&
-                           PersonEdit.Password != null &&
-                           PersonEdit.Password.Length > 0;
+                    return PersonLogin != null &&
+                           PersonLogin.Login != null &&
+                           PersonLogin.Login.Length > 0 &&
+                           PersonLogin.Password != null &&
+                           PersonLogin.Password.Length > 0;
                 });
             RegisterCommand = new Command(
                 execute: () =>
@@ -42,6 +45,7 @@ namespace Interface.ViewModel
 
         void OnPersonEditPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
+            Notification = "";
             (LoginCommand as Command).ChangeCanExecute();
         }
 
@@ -51,10 +55,16 @@ namespace Interface.ViewModel
             (RegisterCommand as Command).ChangeCanExecute();
         }
 
-        public PersonElement PersonEdit
+        public string Notification
         {
-            set { SetProperty(ref personEdit, value); }
-            get { return personEdit; }
+            set { SetProperty(ref notification, value); }
+            get { return notification; }
+        }
+
+        public PersonElement PersonLogin
+        {
+            set { SetProperty(ref personLogin, value); }
+            get { return personLogin; }
         }
 
         public ICommand LoginCommand { private set; get; }
