@@ -5,15 +5,14 @@ using System.Windows.Input;
 
 namespace Interface.ViewModel
 {
-    class RegisterViewModel : INotifyPropertyChanged
+    class RegisterViewModel : ViewModelBase
     {
         PersonElement personEdit;
-        bool isEditing;
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        ViewModelBase _viewModelBase;
 
         public RegisterViewModel()
         {
+            _viewModelBase = new();
             PersonEdit = new();
             PersonEdit.PropertyChanged += OnPersonEditPropertyChanged;
             SubmitCommand = new Command(
@@ -27,10 +26,11 @@ namespace Interface.ViewModel
                 {
                     return PersonEdit != null &&
                            PersonEdit.Name != null &&
-
                            PersonEdit.Name.Length > 1 &&
                            PersonEdit.Login != null &&
-                           PersonEdit.Password != null;
+                           PersonEdit.Login.Length > 1 &&
+                           PersonEdit.Password != null &&
+                           PersonEdit.Password.Length > 1;
                 });
 
         }
@@ -47,25 +47,12 @@ namespace Interface.ViewModel
 
         public PersonElement PersonEdit
         {
-            set { SetProperty(ref personEdit, value); }
+            set { _viewModelBase.SetProperty(ref personEdit, value); }
             get { return personEdit; }
         }
 
         public ICommand SubmitCommand { private set; get; }
 
-        bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (Object.Equals(storage, value))
-                return false;
-
-            storage = value;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        
     }
 }

@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace AppProcessing
 {
-    public class PersonElement : INotifyPropertyChanged
+    public class PersonElement : ViewModelBase
     {
+
+        
         string name;
         string login;
         string password;
         int views;
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public string Name
         {
@@ -42,25 +41,9 @@ namespace AppProcessing
             get { return views; }
         }
 
-
         public override string ToString()
         {
             return Name + ", views " + views;
-        }
-
-        bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (Object.Equals(storage, value))
-                return false;
-
-            storage = value;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

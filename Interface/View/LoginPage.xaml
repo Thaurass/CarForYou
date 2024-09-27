@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Interface.Pages.LoginPage"
              xmlns:local="Interface.Pages.LoginPage"
-             Title="Вход в приложение"
-             NavigationPage.HasBackButton="False">
+             Title="Вход в приложение">
 
     <VerticalStackLayout>
         <Grid>

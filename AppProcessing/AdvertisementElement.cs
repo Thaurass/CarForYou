@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace AppProcessing
 {
-    public class AdvertisementElement : INotifyPropertyChanged
+    public class AdvertisementElement : ViewModelBase
     {
+
         string name;
         string price;
         string mileAge;
         string carType; 
         int views;
         string imageUrl = "C:\\Users\\xj48v\\Burn2Code\\VS\\CarForYou\\Interface\\src\\car.jpg";
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public string Name
         {
@@ -60,19 +59,5 @@ namespace AppProcessing
             return Name + ", price " + Price;
         }
 
-        bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (Object.Equals(storage, value))
-                return false;
-
-            storage = value;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

@@ -1,17 +1,14 @@
 ﻿
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using AppProcessing;
 using System.Windows.Input;
 
 namespace Interface.ViewModel
 {
-    internal class AdvertiseViewModel : INotifyPropertyChanged
+    internal class AdvertiseViewModel : ViewModelBase
     {
         AdvertisementElement carEdit;
         bool isEditing;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public AdvertiseViewModel()
         {
@@ -42,8 +39,13 @@ namespace Interface.ViewModel
                            CarEdit.Name != null &&
                            CarEdit.Name.Length > 1 &&
                            CarEdit.Price != null &&
+                           CarEdit.Price.Length > 0 &&
+                           IsInt(CarEdit.Price) &&
                            CarEdit.CarType != null &&
-                           CarEdit.MileAge != null;
+                           CarEdit.CarType.Length > 0 &&
+                           CarEdit.MileAge != null &&
+                           CarEdit.MileAge.Length > 1 &&
+                           IsInt(CarEdit.MileAge);
                 });
             CancelCommand = new Command(
                 execute: () =>
@@ -57,6 +59,13 @@ namespace Interface.ViewModel
                 {
                     return IsEditing;
                 });
+        }
+
+        bool IsInt(string number)
+        {
+            int verifyedNumber;
+            bool isNumber = int.TryParse(number, out verifyedNumber);
+            return isNumber;
         }
 
         void OnPersonEditPropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -89,20 +98,5 @@ namespace Interface.ViewModel
 
         public ICommand CancelCommand { private set; get; }
 
-
-        bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (Object.Equals(storage, value))
-                return false;
-
-            storage = value;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
