@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace Interface.ViewModel
 {
-    public class LoginViewModel :ViewModelBase
+    internal class LoginViewModel :ViewModelBase
     {
         PersonElement personLogin;
         string notification;

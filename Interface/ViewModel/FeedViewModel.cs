@@ -5,22 +5,25 @@ using System.Windows.Input;
 
 namespace Interface.ViewModel
 {
-    internal class FeedViewModel : INotifyPropertyChanged
+    public class FeedViewModel : ViewModelBase
     {
-        public ICommand _refreshCommand;
-        public event PropertyChangedEventHandler PropertyChanged;
+        private static FeedViewModel? _instance;
+        public static FeedViewModel Instance => _instance ??= new FeedViewModel();
 
-        private IList<AdvertisementElement> _advertisements { get; set; }
-        private Timer _timer;
+        public ICommand _refreshCommand;
+
+        private IList<AdvertisementElement> advertisements { get; set; }
+        private Timer timer;
+        private int selectedIndex;
 
         public IList<AdvertisementElement> Advertisements
         {
-            get => _advertisements;
+            get => advertisements;
             set
             {
-                if (_advertisements != value)
+                if (advertisements != value)
                 {
-                    _advertisements = value;
+                    advertisements = value;
                     OnPropertyChanged();
                 }
             }
@@ -31,14 +34,23 @@ namespace Interface.ViewModel
             this.Advertisements = CarAdvertisements.Instance.Cars;
 
             // Update the DateTime property every second.
-            _timer = new Timer(new TimerCallback((s) => this.Advertisements = CarAdvertisements.Instance.Cars),
+            timer = new Timer(new TimerCallback((s) => this.Advertisements = CarAdvertisements.Instance.Cars),
                                null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
         }
 
-        ~FeedViewModel() =>
-            _timer.Dispose();
+        public int SelectedIndex
+        {
+            private set { SetProperty(ref selectedIndex, value); }
+            get { return selectedIndex; }
+        }
 
-        public void OnPropertyChanged([CallerMemberName] string name = "") =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        ~FeedViewModel() =>
+            timer.Dispose();
+
+        public void SelectCar(int index)
+        {
+            SelectedIndex = index;
+            Shell.Current.GoToAsync("CarCardPage");
+        }
     }
 }

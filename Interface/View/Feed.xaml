@@ -16,8 +16,10 @@
             Text="Обновить"
             Clicked="{Binding OnPropertyChanged}"/>-->
         <RefreshView IsRefreshing="False"
-             Command="{Binding _refreshCommand}">
-            <ListView ItemsSource="{Binding Advertisements}">
+                     Command="{Binding _refreshCommand}">
+            <ListView x:Name="carListView" 
+                      ItemsSource="{Binding Advertisements}" 
+                      ItemTapped="ListView_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

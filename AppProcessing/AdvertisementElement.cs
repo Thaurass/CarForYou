@@ -17,6 +17,7 @@ namespace AppProcessing
         string carType; 
         int views;
         string imageUrl = "C:\\Users\\xj48v\\Burn2Code\\VS\\CarForYou\\Interface\\src\\car.jpg";
+        string authorLogin;
 
         public string Name
         {
@@ -53,6 +54,14 @@ namespace AppProcessing
             set { SetProperty(ref imageUrl, value); }
             get { return imageUrl; }
         }
+
+        public string AuthorLogin
+        {
+            set { SetProperty(ref authorLogin, value); }
+            get { return authorLogin; }
+        }
+
+
 
         public override string ToString()
         {

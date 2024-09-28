@@ -27,6 +27,7 @@ namespace Interface.ViewModel
             SubmitCommand = new Command(
                 execute: () =>
                 {
+                    CarEdit.AuthorLogin = PersonCollection.Instance.CurrentSession.Login;
                     CarEdit.PropertyChanged -= OnPersonEditPropertyChanged;
                     CarAdvertisements.Instance.Cars.Add(CarEdit);
                     CarEdit = null;

@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Interface.ViewModel"
              x:Class="Interface.Pages.Profile"
              Title="Profile">
+    <ContentPage.BindingContext>
+        <local:ProfileViewModel />
+    </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Label 
-            Text="Pf"
-            x:Name="advertise"
+            Text="{Binding Name, StringFormat='Здравствуйте, {0}.'}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding Login, StringFormat='Ваш логин: {0}.'}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <!--<Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                Margin="2"
+                x:Name="registerButton"
+                Text="Cменить имя"
+                Command="{Binding ChangeNameCommand}"/>
+            <Button
+                Grid.Column="1"
+                Margin="2"
+                x:Name="loginButton"
+                Text="Сменить пароль"
+                Command="{Binding ChangePassCommand}"
+        />
+        </Grid>-->
     </VerticalStackLayout>
 </ContentPage>

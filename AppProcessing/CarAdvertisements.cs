@@ -15,6 +15,11 @@ namespace AppProcessing
 
         public IList<AdvertisementElement> Cars { get; } = new ObservableCollection<AdvertisementElement>();
 
+        public void AddView(int index)
+        {
+            Cars[index].Views++;
+        }
+
     }
 
 }

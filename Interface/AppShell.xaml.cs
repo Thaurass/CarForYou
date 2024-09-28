@@ -1,4 +1,5 @@
 ﻿using Interface.Pages;
+using Interface.View;
 
 namespace Interface
 {
@@ -10,6 +11,7 @@ namespace Interface
             Routing.RegisterRoute("MainPage", typeof(MainPage));
             Routing.RegisterRoute("RegisterPage", typeof(RegisterPage));
             Routing.RegisterRoute("LoginPage", typeof(LoginPage));
+            Routing.RegisterRoute("CarCardPage", typeof(CarCardPage));
         }
     }
 }

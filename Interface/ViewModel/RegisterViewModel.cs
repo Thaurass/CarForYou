@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace Interface.ViewModel
 {
-    class RegisterViewModel : ViewModelBase
+    internal class RegisterViewModel : ViewModelBase
     {
         PersonElement personEdit;
         string notification;

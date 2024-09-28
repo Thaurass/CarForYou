@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Interface.ViewModel"
+             x:Class="Interface.View.CarCardPage"
+             Title="CarCardPage">
+    <ContentPage.BindingContext>
+        <local:CarCardViewModel />
+    </ContentPage.BindingContext>
+    <VerticalStackLayout BindingContext="{Binding CurrentCar}">
+        <Label 
+            Text="{Binding Name, StringFormat='Название модели: {0}'}"
+            Margin="14"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="14"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding Price, StringFormat='Цена: {0}'}"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="14"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding MileAge, StringFormat='Пробег автомобиля: {0}'}"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="14"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding CarType, StringFormat='Тип кузова автомобиля: {0}'}"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="14"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding Views, StringFormat='Просмотры объявления: {0}'}"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="14"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>
