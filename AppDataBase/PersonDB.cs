@@ -24,22 +24,43 @@ namespace AppDataBase
         public bool AddUser(User user)
         {
             bool userWasAdd = false;
+            var connection = getConnection();
+
+            openConnection();
+
+            string userQuery = $"INSERT INTO persons (person_name, person_login, person_password, person_views) VALUES ('{user.Name}', '{user.Login}', '{user.Password}', '{user.Views}')";
+            var cmd = new SqlCommand(userQuery, connection);
+
             
-            using (var connection = getConnection())
+            if (cmd.ExecuteNonQuery() == 1) 
             {
-
-                openConnection();
-
-                string userQuery = $"INSERT INTO persons (person_name, person_login, person_password, person_views) VALUES ('{user.Name}', '{user.Login}', '{user.Password}', '{user.Views}')";
-                var cmd = new SqlCommand(userQuery, connection);
-
                 userWasAdd = true;
-
-
-                closeConnection();
             }
+
+            closeConnection();
             
             return userWasAdd;
+        }
+
+        public bool UpdateUser(User user)
+        {
+            bool userWasUpdated = false;
+            var connection = getConnection();
+
+            openConnection();
+
+            string userQuery = $"UPDATE persons SET person_name = '{user.Name}', person_password = '{user.Password}', person_views = '{user.Views}' WHERE person_name = '{user.Name}'";
+            var cmd = new SqlCommand(userQuery, connection);
+
+
+            if (cmd.ExecuteNonQuery() == 1)
+            {
+                userWasUpdated = true;
+            }
+
+            closeConnection();
+
+            return userWasUpdated;
         }
 
         public ReturnUsers GetAllUsers()
@@ -47,34 +68,32 @@ namespace AppDataBase
             ReturnUsers returnUsers = new();
 
             returnUsers.userWasAdd = false;
-            
-            using (var connection = getConnection())
+
+            var connection = getConnection();
+
+            openConnection();
+
+            SqlDataAdapter adapter = new();
+            DataTable dt = new();
+
+            string userQuery = "SELECT person_name, person_login, person_password, person_views FROM persons";
+            var cmd = new SqlCommand(userQuery, connection);
+            adapter.SelectCommand = cmd;
+            adapter.Fill(dt);
+
+            returnUsers.users = new User[dt.Rows.Count];
+            for(int i = 0; i < dt.Rows.Count; i++)
             {
+                returnUsers.users[i].Name = dt.Rows[i]["person_name"].ToString();
+                returnUsers.users[i].Login = dt.Rows[i]["person_login"].ToString();
+                returnUsers.users[i].Password = dt.Rows[i]["person_password"].ToString();
+                returnUsers.users[i].Views = dt.Rows[i]["person_views"].ToString();
 
-                openConnection();
-
-                SqlDataAdapter adapter = new();
-                DataTable dt = new();
-
-                string userQuery = "SELECT person_name, person_login, person_password, person_views FROM persons";
-                var cmd = new SqlCommand(userQuery, connection);
-                adapter.SelectCommand = cmd;
-                adapter.Fill(dt);
-
-                returnUsers.users = new User[dt.Rows.Count];
-                for(int i = 0; i < dt.Rows.Count; i++)
-                {
-                    returnUsers.users[i].Name = dt.Rows[i]["person_name"].ToString();
-                    returnUsers.users[i].Login = dt.Rows[i]["person_login"].ToString();
-                    returnUsers.users[i].Password = dt.Rows[i]["person_password"].ToString();
-                    returnUsers.users[i].Views = dt.Rows[i]["person_views"].ToString();
-
-                }
-
-                returnUsers.userWasAdd = true;
-
-                closeConnection();
             }
+
+            returnUsers.userWasAdd = true;
+
+            closeConnection();
             
             return returnUsers;
         }

@@ -31,6 +31,8 @@ namespace Interface.ViewModel
 
         public FeedViewModel()
         {
+            
+            CarAdvertisements.Instance.updateAllCars();
             this.Advertisements = CarAdvertisements.Instance.Cars;
 
             // Update the DateTime property every second.

@@ -17,11 +17,12 @@ namespace AppProcessing
 
         public bool CheckCorrectPerson(string login, string password)
         {
-            updatePersons();
+            updateAllPersons();
             foreach (PersonElement element in Persons) 
             {
                 if (element.Login == login && element.Password == password) 
                 { 
+
                     CurrentSession = element;
                     return true; 
                 }
@@ -32,7 +33,7 @@ namespace AppProcessing
 
         public bool LoginIsUnique(string login)
         {
-            updatePersons();
+            updateAllPersons();
             foreach (PersonElement element in Persons)
             {
                 if (element.Login == login) return false;
@@ -41,7 +42,7 @@ namespace AppProcessing
             return true;
         }
 
-        public bool updatePersons() 
+        public bool updateAllPersons() 
         {
             ReturnUsers newUsers = personDB.GetAllUsers();
             Persons = new ObservableCollection<PersonElement>();
@@ -68,9 +69,23 @@ namespace AppProcessing
             user.Views = element.Views.ToString();
 
             bool personWasAdd = personDB.AddUser(user);
-            updatePersons();
+            updateAllPersons();
 
             return personWasAdd;
+        }
+
+        public bool UpdateOnePerson(PersonElement element)
+        {
+            User user = new User();
+            user.Name = element.Name;
+            user.Login = element.Login;
+            user.Password = element.Password;
+            user.Views = element.Views.ToString();
+
+            bool personWasUpdated = personDB.UpdateUser(user);
+            updateAllPersons();
+
+            return personWasUpdated;
         }
     }
 }

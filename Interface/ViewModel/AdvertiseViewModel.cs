@@ -29,7 +29,7 @@ namespace Interface.ViewModel
                 {
                     CarEdit.AuthorLogin = PersonCollection.Instance.CurrentSession.Login;
                     CarEdit.PropertyChanged -= OnPersonEditPropertyChanged;
-                    CarAdvertisements.Instance.Cars.Add(CarEdit);
+                    CarAdvertisements.Instance.AddCar(CarEdit);
                     CarEdit = null;
                     IsEditing = false;
                     RefreshCanExecutes();

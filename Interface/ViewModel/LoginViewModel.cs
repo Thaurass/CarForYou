@@ -11,6 +11,7 @@ namespace Interface.ViewModel
 
         public LoginViewModel()
         {
+            CarAdvertisements.Instance.updateAllCars();
             PersonLogin = new();
             PersonLogin.PropertyChanged += OnPersonEditPropertyChanged;
             LoginCommand = new Command(

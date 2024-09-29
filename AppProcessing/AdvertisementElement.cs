@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace AppProcessing
 {
     public class AdvertisementElement : ViewModelBase
     {
-
+        string id;
         string name;
         string price;
         string mileAge;
@@ -19,6 +13,11 @@ namespace AppProcessing
         string imageUrl = "C:\\Users\\xj48v\\Burn2Code\\VS\\CarForYou\\Interface\\src\\car.jpg";
         string authorLogin;
 
+        public string Id
+        {
+            set { SetProperty(ref id, value); }
+            get { return id; }
+        }
         public string Name
         {
             set { SetProperty(ref name, value); }

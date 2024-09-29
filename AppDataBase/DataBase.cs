@@ -4,8 +4,6 @@ namespace AppDataBase
 {
     public class DataBase
     {
-        private static DataBase? _instance;
-        public static DataBase Instance => _instance ??= new DataBase();
 
         private readonly SqlConnection _sqlConnection;
 

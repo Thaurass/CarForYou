@@ -12,7 +12,8 @@ namespace Interface.ViewModel
 
             if (PersonCollection.Instance.CurrentSession.Login != CurrentCar.AuthorLogin) 
             {
-                CarAdvertisements.Instance.AddView(FeedViewModel.Instance.SelectedIndex);
+                CurrentCar.Views++;
+                CarAdvertisements.Instance.UpdateOneCar(CurrentCar);
             }
 
         }
