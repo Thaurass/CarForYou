@@ -3,11 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Interface.ViewModel"
              x:Class="Interface.View.CarCardPage"
-             Title="CarCardPage">
+             Title="Карточка объявления">
     <ContentPage.BindingContext>
         <local:CarCardViewModel />
     </ContentPage.BindingContext>
     <VerticalStackLayout BindingContext="{Binding CurrentCar}">
+        <Image Grid.RowSpan="3"
+            Source="{Binding ImageUrl}"
+            Aspect="AspectFill"
+            HeightRequest="300"
+            WidthRequest="300" />
         <Label 
             Text="{Binding Name, StringFormat='Название модели: {0}'}"
             Margin="14"
@@ -17,24 +22,35 @@
             HorizontalOptions="Center" />
         <Label 
             Text="{Binding Price, StringFormat='Цена: {0}'}"
+            Margin="14"
             SemanticProperties.HeadingLevel="Level1"
             FontSize="14"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Label 
             Text="{Binding MileAge, StringFormat='Пробег автомобиля: {0}'}"
+            Margin="14"
             SemanticProperties.HeadingLevel="Level1"
             FontSize="14"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Label 
             Text="{Binding CarType, StringFormat='Тип кузова автомобиля: {0}'}"
+            Margin="14"
             SemanticProperties.HeadingLevel="Level1"
             FontSize="14"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Label 
             Text="{Binding Views, StringFormat='Просмотры объявления: {0}'}"
+            Margin="14"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="14"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding AuthorLogin, StringFormat='Автор объявления: {0}'}"
+            Margin="14"
             SemanticProperties.HeadingLevel="Level1"
             FontSize="14"
             VerticalOptions="Center" 

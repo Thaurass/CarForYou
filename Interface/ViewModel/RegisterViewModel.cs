@@ -19,7 +19,7 @@ namespace Interface.ViewModel
                     if(PersonCollection.Instance.LoginIsUnique(PersonEdit.Login))
                     {
                         PersonEdit.Views = 0;
-                        PersonCollection.Instance.Persons.Add(PersonEdit);
+                        PersonCollection.Instance.AddPerson(PersonEdit);
                         Notification = "Пользователь успешно зарегестрирован";
                     } else
                     {

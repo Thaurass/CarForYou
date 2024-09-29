@@ -32,9 +32,7 @@
                 Grid.Column="1"
                 Margin="2"
                 x:Name="loginButton"
-                Text="Сменить пароль"
-                Command="{Binding ChangePassCommand}"
-        />
+                Command="{Binding ChangePassCommand}"/>
         </Grid>-->
     </VerticalStackLayout>
 </ContentPage>
