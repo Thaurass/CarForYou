@@ -1,5 +1,4 @@
 using AppProcessing;
-using NUnit.Framework;
 
 namespace AppProcessingTest
 {

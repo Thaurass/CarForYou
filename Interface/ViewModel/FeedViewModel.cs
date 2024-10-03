@@ -1,6 +1,4 @@
 ﻿using AppProcessing;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace Interface.ViewModel

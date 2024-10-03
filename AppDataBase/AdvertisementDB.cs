@@ -27,28 +27,28 @@ namespace AppDataBase
 
         public bool AddCar(Car car)
         {
-            bool userWasAdd = false;
+            bool carWasAdd = false;
             var connection = getConnection();
 
             openConnection();
 
-            string userQuery = $"INSERT INTO advertisements (advertisements_name, advertisements_price, advertisements_mileage, advertisements_cartype, advertisements_views, advertisements_carimage, advertisements_author, advertisements_imageurl) VALUES ('{car.Name}', '{car.Price}', '{car.MileAge}', '{car.CarType}', '{car.Views}', 0, '{car.AuthorLogin}', '{car.ImageUrl}')";
-            var cmd = new SqlCommand(userQuery, connection);
+            string carQuery = $"INSERT INTO advertisements (advertisements_name, advertisements_price, advertisements_mileage, advertisements_cartype, advertisements_views, advertisements_carimage, advertisements_author, advertisements_imageurl) VALUES ('{car.Name}', '{car.Price}', '{car.MileAge}', '{car.CarType}', '{car.Views}', 0, '{car.AuthorLogin}', '{car.ImageUrl}')";
+            var cmd = new SqlCommand(carQuery, connection);
 
 
             if (cmd.ExecuteNonQuery() == 1)
             {
-                userWasAdd = true;
+                carWasAdd = true;
             }
 
             closeConnection();
 
-            return userWasAdd;
+            return carWasAdd;
         }
 
         public bool UpdateCar(Car car)
         {
-            bool userWasUpdated = false;
+            bool carWasUpdated = false;
             var connection = getConnection();
 
             openConnection();
@@ -59,12 +59,33 @@ namespace AppDataBase
 
             if (cmd.ExecuteNonQuery() == 1)
             {
-                userWasUpdated = true;
+                carWasUpdated = true;
             }
 
             closeConnection();
 
-            return userWasUpdated;
+            return carWasUpdated;
+        }
+
+        public bool DeleateCar(Car car)
+        {
+            bool carWasDeleated = false;
+            var connection = getConnection();
+
+            openConnection();
+
+            string deleteQuery = "DELETE FROM Recipe WHERE Name_recipe = @Name_recipe";
+            var cmd = new SqlCommand(deleteQuery, connection);
+
+
+            if (cmd.ExecuteNonQuery() == 1)
+            {
+                carWasDeleated = true;
+            }
+
+            closeConnection();
+
+            return carWasDeleated;
         }
 
         public ReturnCars GetAllCars()
@@ -80,8 +101,8 @@ namespace AppDataBase
             SqlDataAdapter adapter = new();
             DataTable dt = new();
 
-            string userQuery = "SELECT advertisements_id, advertisements_name, advertisements_price, advertisements_mileage, advertisements_cartype, advertisements_views, advertisements_author, advertisements_imageurl FROM advertisements";
-            var cmd = new SqlCommand(userQuery, connection);
+            string carQuery = "SELECT advertisements_id, advertisements_name, advertisements_price, advertisements_mileage, advertisements_cartype, advertisements_views, advertisements_author, advertisements_imageurl FROM advertisements";
+            var cmd = new SqlCommand(carQuery, connection);
             adapter.SelectCommand = cmd;
             adapter.Fill(dt);
 

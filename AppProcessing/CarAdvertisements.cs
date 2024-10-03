@@ -1,10 +1,5 @@
 ﻿using AppDataBase;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static AppDataBase.AdvertisementDB;
 
 namespace AppProcessing
@@ -70,10 +65,28 @@ namespace AppProcessing
             car.ImageUrl = element.ImageUrl;
             car.AuthorLogin = element.AuthorLogin;
 
-            bool carsonWasUpdated = advertisementDB.UpdateCar(car);
+            bool carsWasUpdated = advertisementDB.UpdateCar(car);
             updateAllCars();
 
-            return carsonWasUpdated;
+            return carsWasUpdated;
+        }
+
+        public bool DeleateOneCar(AdvertisementElement element)
+        {
+            Car car = new Car();
+            car.Id = element.Id;
+            car.Name = element.Name;
+            car.Price = element.Price;
+            car.MileAge = element.MileAge;
+            car.CarType = element.CarType;
+            car.Views = element.Views.ToString();
+            car.ImageUrl = element.ImageUrl;
+            car.AuthorLogin = element.AuthorLogin;
+
+            bool carsWasDeleated = advertisementDB.DeleateCar(car);
+            updateAllCars();
+
+            return carsWasDeleated;
         }
     }
 
