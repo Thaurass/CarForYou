@@ -9,6 +9,9 @@ namespace Interface.ViewModel
     {
         AdvertisementElement carEdit;
         bool isEditing;
+        string[] names = { "Lada Vesta", "Opel Vectra", "Reno Megan", "Range Rover", "Reno Logan", "Lada Largus"};
+        string[] carTypes = { "SUV", "Sedan", "Hatchback" };
+        Random random = new Random();
 
         public AdvertiseViewModel()
         {
@@ -60,6 +63,19 @@ namespace Interface.ViewModel
                 {
                     return IsEditing;
                 });
+            FillCommand = new Command(
+                execute: () =>
+                {
+                    CarEdit.Name = names[random.Next(names.Length)];
+                    CarEdit.Price = random.Next(100000, 10000000).ToString();
+                    CarEdit.MileAge = random.Next(1000, 1000000).ToString();
+                    CarEdit.CarType = carTypes[random.Next(carTypes.Length)];
+                    RefreshCanExecutes();
+                },
+                canExecute: () =>
+                {
+                    return IsEditing;
+                });
         }
 
         bool IsInt(string number)
@@ -79,6 +95,7 @@ namespace Interface.ViewModel
             (NewCommand as Command).ChangeCanExecute();
             (SubmitCommand as Command).ChangeCanExecute();
             (CancelCommand as Command).ChangeCanExecute();
+            (FillCommand as Command).ChangeCanExecute();
         }
 
         public bool IsEditing
@@ -94,10 +111,9 @@ namespace Interface.ViewModel
         }
 
         public ICommand NewCommand { private set; get; }
-
         public ICommand SubmitCommand { private set; get; }
-
         public ICommand CancelCommand { private set; get; }
+        public ICommand FillCommand { private set; get; }
 
     }
 }

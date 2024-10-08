@@ -57,6 +57,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <Button Text="Разместить"
@@ -64,8 +65,13 @@
                 Margin="14"
                 Command="{Binding SubmitCommand}"
                 VerticalOptions="Center" />
-            <Button Text="Отменить"
+            <Button Text="Заполнить"
                 Grid.Column="1"
+                Margin="14"
+                Command="{Binding FillCommand}"
+                VerticalOptions="Center" />
+            <Button Text="Отменить"
+                Grid.Column="2"
                 Margin="14"
                 Command="{Binding CancelCommand}"
                 VerticalOptions="Center" />
