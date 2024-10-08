@@ -28,11 +28,6 @@ namespace AppProcessing
             get { return password; }
         }
 
-        public int Views
-        {
-            set { SetProperty(ref views, value); }
-            get { return views; }
-        }
 
         public override string ToString()
         {

@@ -1,6 +1,7 @@
 ﻿
 using System.Data.SqlClient;
 using System.Data;
+using static AppDataBase.AdvertisementDB;
 
 namespace AppDataBase
 {
@@ -9,6 +10,7 @@ namespace AppDataBase
         public struct Car
         {
             public string Id;
+            public string CarId;
             public string Name;
             public string Price;
             public string MileAge;
@@ -25,25 +27,52 @@ namespace AppDataBase
             public bool carWasAdd;
         }
 
-        public bool AddCar(Car car)
+        private string AddCar(Car car)
         {
-            bool carWasAdd = false;
+            string carWasAdd = null;
             var connection = getConnection();
 
-            openConnection();
 
-            string carQuery = $"INSERT INTO advertisements (advertisements_name, advertisements_price, advertisements_mileage, advertisements_cartype, advertisements_views, advertisements_carimage, advertisements_author, advertisements_imageurl) VALUES ('{car.Name}', '{car.Price}', '{car.MileAge}', '{car.CarType}', '{car.Views}', 0, '{car.AuthorLogin}', '{car.ImageUrl}')";
+            string carQuery = $"INSERT INTO cars (car_name, car_price, car_mileage, car_type, car_imageurl) VALUES ('{car.Name}', '{car.Price}', '{car.MileAge}', '{car.CarType}', '{car.ImageUrl}')";
             var cmd = new SqlCommand(carQuery, connection);
 
 
             if (cmd.ExecuteNonQuery() == 1)
             {
-                carWasAdd = true;
+                var reader = cmd.ExecuteReader();
+                carWasAdd = reader["car_id"].ToString();
             }
+
+
+            return carWasAdd;
+        }
+
+        public bool AddAdvertisement(Car car)
+        {
+            bool advertisementWasAdd = false;
+            var connection = getConnection();
+
+            openConnection();
+
+            string carID = AddCar(car);
+
+            if (carID != null)
+            {
+                string carQuery = $"INSERT INTO advertisements (advertisements_car, advertisements_views, advertisements_author) VALUES ('{carID}', '{car.Views}', '{car.AuthorLogin}')";
+                var cmd = new SqlCommand(carQuery, connection);
+
+
+                if (cmd.ExecuteNonQuery() == 1)
+                {
+                    advertisementWasAdd = true;
+                }
+            }
+
+            
 
             closeConnection();
 
-            return carWasAdd;
+            return advertisementWasAdd;
         }
 
         public bool UpdateCar(Car car)
@@ -90,33 +119,48 @@ namespace AppDataBase
 
         public ReturnCars GetAllCars()
         {
-            ReturnCars returnCars = new();
-
-            returnCars.carWasAdd = false;
+            ReturnCars returnCars = new()
+            {
+                carWasAdd = false,
+                cars = new Car[9]
+            };
 
             var connection = getConnection();
 
             openConnection();
 
-            SqlDataAdapter adapter = new();
-            DataTable dt = new();
+            SqlDataAdapter advertiseAdapter = new();
+            DataTable advertiseDT = new();
 
-            string carQuery = "SELECT advertisements_id, advertisements_name, advertisements_price, advertisements_mileage, advertisements_cartype, advertisements_views, advertisements_author, advertisements_imageurl FROM advertisements";
-            var cmd = new SqlCommand(carQuery, connection);
-            adapter.SelectCommand = cmd;
-            adapter.Fill(dt);
+            string advertiseQuery = "SELECT advertisements_id, advertisements_car, advertisements_views, advertisements_author FROM advertisements";
+            var advertiseCmd = new SqlCommand(advertiseQuery, connection);
+            advertiseAdapter.SelectCommand = advertiseCmd;
+            advertiseAdapter.Fill(advertiseDT);
 
-            returnCars.cars = new Car[dt.Rows.Count];
-            for (int i = 0; i < dt.Rows.Count; i++)
+            for (int i = 0; i < advertiseDT.Rows.Count; i++)
             {
-                returnCars.cars[i].Id = dt.Rows[i]["advertisements_id"].ToString();
-                returnCars.cars[i].Name = dt.Rows[i]["advertisements_name"].ToString();
-                returnCars.cars[i].Price = dt.Rows[i]["advertisements_price"].ToString();
-                returnCars.cars[i].MileAge = dt.Rows[i]["advertisements_mileage"].ToString();
-                returnCars.cars[i].CarType = dt.Rows[i]["advertisements_cartype"].ToString();
-                returnCars.cars[i].Views = dt.Rows[i]["advertisements_views"].ToString();
-                returnCars.cars[i].AuthorLogin = dt.Rows[i]["advertisements_author"].ToString();
-                returnCars.cars[i].ImageUrl = dt.Rows[i]["advertisements_imageurl"].ToString();
+                returnCars.cars[i].Id = advertiseDT.Rows[i]["advertisements_id"].ToString();
+                returnCars.cars[i].CarId = advertiseDT.Rows[i]["advertisements_car"].ToString();
+                returnCars.cars[i].Views = advertiseDT.Rows[i]["advertisements_views"].ToString();
+                returnCars.cars[i].AuthorLogin = advertiseDT.Rows[i]["advertisements_author"].ToString();
+            }
+
+            SqlDataAdapter carAdapter = new();
+            DataTable carDT = new();
+
+            string carQuery = "SELECT car_name, car_price, car_mileage, car_type, car_imageurl FROM cars";
+            var carCmd = new SqlCommand(carQuery, connection);
+            carAdapter.SelectCommand = carCmd;
+            carAdapter.Fill(carDT);
+
+            for (int i = 0; i < carDT.Rows.Count; i++)
+            {
+                returnCars.cars[i].Name = carDT.Rows[i]["car_name"].ToString();
+                returnCars.cars[i].Price = carDT.Rows[i]["car_price"].ToString();
+                returnCars.cars[i].MileAge = carDT.Rows[i]["car_mileage"].ToString();
+                returnCars.cars[i].CarType = carDT.Rows[i]["car_type"].ToString();
+                returnCars.cars[i].ImageUrl = carDT.Rows[i]["car_imageurl"].ToString();
+
             }
 
             returnCars.carWasAdd = true;

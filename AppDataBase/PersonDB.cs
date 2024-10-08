@@ -28,7 +28,7 @@ namespace AppDataBase
 
             openConnection();
 
-            string userQuery = $"INSERT INTO persons (person_name, person_login, person_password, person_views) VALUES ('{user.Name}', '{user.Login}', '{user.Password}', '{user.Views}')";
+            string userQuery = $"INSERT INTO persons (person_name, person_login, person_password) VALUES ('{user.Name}', '{user.Login}', '{user.Password}')";
             var cmd = new SqlCommand(userQuery, connection);
 
             
@@ -76,7 +76,7 @@ namespace AppDataBase
             SqlDataAdapter adapter = new();
             DataTable dt = new();
 
-            string userQuery = "SELECT person_name, person_login, person_password, person_views FROM persons";
+            string userQuery = "SELECT person_name, person_login, person_password FROM persons";
             var cmd = new SqlCommand(userQuery, connection);
             adapter.SelectCommand = cmd;
             adapter.Fill(dt);
@@ -87,7 +87,6 @@ namespace AppDataBase
                 returnUsers.users[i].Name = dt.Rows[i]["person_name"].ToString();
                 returnUsers.users[i].Login = dt.Rows[i]["person_login"].ToString();
                 returnUsers.users[i].Password = dt.Rows[i]["person_password"].ToString();
-                returnUsers.users[i].Views = dt.Rows[i]["person_views"].ToString();
 
             }
 

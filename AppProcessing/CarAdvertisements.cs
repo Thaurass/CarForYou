@@ -26,11 +26,16 @@ namespace AppProcessing
                 newCar.Price = element.Price;
                 newCar.MileAge = element.MileAge;
                 newCar.CarType = element.CarType;
-                newCar.Views = Int32.Parse(element.Views);
+                if(element.Views != null)
+                {
+                    newCar.Views = Int32.Parse(element.Views);
+
+                }
                 newCar.ImageUrl = element.ImageUrl;
                 newCar.AuthorLogin = element.AuthorLogin;
                 Cars.Add(newCar);
             }
+            
 
             return newCars.carWasAdd;
         }
@@ -47,7 +52,7 @@ namespace AppProcessing
             car.ImageUrl = element.ImageUrl;
             car.AuthorLogin = element.AuthorLogin;
 
-            bool carWasAdd = advertisementDB.AddCar(car);
+            bool carWasAdd = advertisementDB.AddAdvertisement(car);
             updateAllCars();
 
             return carWasAdd;

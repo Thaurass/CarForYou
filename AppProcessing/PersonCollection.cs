@@ -53,7 +53,6 @@ namespace AppProcessing
                 newPerson.Name = element.Name;
                 newPerson.Login = element.Login;
                 newPerson.Password = element.Password;
-                newPerson.Views = Int32.Parse(element.Views);
                 Persons.Add(newPerson);
             }
 
@@ -66,7 +65,6 @@ namespace AppProcessing
             user.Name = element.Name;
             user.Login = element.Login;
             user.Password = element.Password;
-            user.Views = element.Views.ToString();
 
             bool personWasAdd = personDB.AddUser(user);
             updateAllPersons();
@@ -80,7 +78,6 @@ namespace AppProcessing
             user.Name = element.Name;
             user.Login = element.Login;
             user.Password = element.Password;
-            user.Views = element.Views.ToString();
 
             bool personWasUpdated = personDB.UpdateUser(user);
             updateAllPersons();
