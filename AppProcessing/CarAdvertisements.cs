@@ -22,6 +22,7 @@ namespace AppProcessing
             {
                 AdvertisementElement newCar = new();
                 newCar.Id = element.Id;
+                newCar.CarId = element.CarId;
                 newCar.Name = element.Name;
                 newCar.Price = element.Price;
                 newCar.MileAge = element.MileAge;
@@ -40,7 +41,7 @@ namespace AppProcessing
             return newCars.carWasAdd;
         }
 
-        public bool AddCar(AdvertisementElement element)
+        async public Task AddCar(AdvertisementElement element)
         {
             Car car = new Car();
             car.Id = element.Id;
@@ -52,13 +53,12 @@ namespace AppProcessing
             car.ImageUrl = element.ImageUrl;
             car.AuthorLogin = element.AuthorLogin;
 
-            bool carWasAdd = advertisementDB.AddAdvertisement(car);
+            bool carWasAdd = await Task.Run(() => advertisementDB.AddAdvertisement(car));
             updateAllCars();
 
-            return carWasAdd;
         }
 
-        public bool UpdateOneCar(AdvertisementElement element)
+        async public Task UpdateOneCar(AdvertisementElement element)
         {
             Car car = new Car();
             car.Id = element.Id;
@@ -70,16 +70,16 @@ namespace AppProcessing
             car.ImageUrl = element.ImageUrl;
             car.AuthorLogin = element.AuthorLogin;
 
-            bool carsWasUpdated = advertisementDB.UpdateCar(car);
+            bool carsWasUpdated = await Task.Run(() => advertisementDB.UpdateCar(car));
             updateAllCars();
 
-            return carsWasUpdated;
         }
 
-        public bool DeleateOneCar(AdvertisementElement element)
+        async public Task DeleteOneCar(AdvertisementElement element)
         {
             Car car = new Car();
             car.Id = element.Id;
+            car.CarId = element.CarId;
             car.Name = element.Name;
             car.Price = element.Price;
             car.MileAge = element.MileAge;
@@ -88,10 +88,9 @@ namespace AppProcessing
             car.ImageUrl = element.ImageUrl;
             car.AuthorLogin = element.AuthorLogin;
 
-            bool carsWasDeleated = advertisementDB.DeleateCar(car);
+            bool carsWasDeleate = await Task.Run(() => advertisementDB.DeleteCar(car));
             updateAllCars();
 
-            return carsWasDeleated;
         }
     }
 

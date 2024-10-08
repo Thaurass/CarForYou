@@ -9,7 +9,7 @@ namespace AppDataBase
 
         public DataBase()
         {
-            _sqlConnection = new SqlConnection(@"Data Source=PERSESMAHONOR\TESTSERVER;Initial Catalog=CarForYouDB;Integrated Security=True");
+            _sqlConnection = new SqlConnection(@"Data Source=PERSESMA\SQLEXPRESS;Initial Catalog=CarForYouDB;Integrated Security=True");
         }
 
         public void openConnection()

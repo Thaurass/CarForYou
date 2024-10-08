@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Interface.ViewModel"
              x:Class="Interface.Pages.Advertise"
-             Title="Advertise">
+             Title="Мои объявления">
     <ContentPage.BindingContext>
         <local:AdvertiseViewModel />
     </ContentPage.BindingContext>
@@ -16,8 +16,9 @@
         </Grid.RowDefinitions>
 
         <!-- New Button -->
-        <Button Text="New"
+        <Button Text="Создать объявление"
             Grid.Row="0"
+            Margin="14"
             Command="{Binding NewCommand}"
             HorizontalOptions="Start" />
 
@@ -36,17 +37,17 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Label Text="Name: " Grid.Row="0" Grid.Column="0" />
-                <Entry Text="{Binding Name}" 
+                <Label Margin="14" Text="Название: " Grid.Row="0" Grid.Column="0" />
+                <Entry  Margin="14" Text="{Binding Name}" 
                    Grid.Row="0" Grid.Column="1" />
-                <Label Text="Price: " Grid.Row="1" Grid.Column="0" />
-                <Entry Text="{Binding Price}"  
+                <Label Margin="14" Text="Стоимость: " Grid.Row="1" Grid.Column="0" />
+                <Entry Margin="14" Text="{Binding Price}"  
                         Grid.Row="1" Grid.Column="1" />
-                <Label Text="MileAge: " Grid.Row="2" Grid.Column="0" />
-                <Entry Text="{Binding MileAge}"  
+                <Label Margin="14" Text="Пробег: " Grid.Row="2" Grid.Column="0" />
+                <Entry Margin="14" Text="{Binding MileAge}"  
                        Grid.Row="2" Grid.Column="1" />
-                <Label Text="CarType: " Grid.Row="3" Grid.Column="0" />
-                <Entry Text="{Binding CarType}"  
+                <Label Margin="14" Text="Тип кузова: " Grid.Row="3" Grid.Column="0" />
+                <Entry Margin="14" Text="{Binding CarType}"  
                        Grid.Row="3" Grid.Column="1" />
             </Grid>
         </Grid>
@@ -58,12 +59,14 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Text="Submit"
+            <Button Text="Разместить"
                 Grid.Column="0"
+                Margin="14"
                 Command="{Binding SubmitCommand}"
                 VerticalOptions="Center" />
-            <Button Text="Cancel"
+            <Button Text="Отменить"
                 Grid.Column="1"
+                Margin="14"
                 Command="{Binding CancelCommand}"
                 VerticalOptions="Center" />
         </Grid>

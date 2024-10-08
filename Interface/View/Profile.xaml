@@ -3,16 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Interface.ViewModel"
              x:Class="Interface.Pages.Profile"
-             Title="Profile">
+             Title="Профиль">
     <ContentPage.BindingContext>
         <local:ProfileViewModel />
     </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Label 
+            Margin="14"
             Text="{Binding Name, StringFormat='Здравствуйте, {0}.'}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Label 
+            Margin="14"
             Text="{Binding Login, StringFormat='Ваш логин: {0}.'}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />

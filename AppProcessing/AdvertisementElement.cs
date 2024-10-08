@@ -5,6 +5,7 @@ namespace AppProcessing
     public class AdvertisementElement : ViewModelBase
     {
         string id;
+        string carId;
         string name;
         string price;
         string mileAge;
@@ -18,6 +19,13 @@ namespace AppProcessing
             set { SetProperty(ref id, value); }
             get { return id; }
         }
+
+        public string CarId
+        {
+            set { SetProperty(ref carId, value); }
+            get { return carId; }
+        }
+
         public string Name
         {
             set { SetProperty(ref name, value); }

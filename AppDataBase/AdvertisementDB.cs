@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Data;
 using static AppDataBase.AdvertisementDB;
+using System.Transactions;
 
 namespace AppDataBase
 {
@@ -35,15 +36,14 @@ namespace AppDataBase
 
             string carQuery = $"INSERT INTO cars (car_name, car_price, car_mileage, car_type, car_imageurl) VALUES ('{car.Name}', '{car.Price}', '{car.MileAge}', '{car.CarType}', '{car.ImageUrl}')";
             var cmd = new SqlCommand(carQuery, connection);
-
-
-            if (cmd.ExecuteNonQuery() == 1)
+            cmd.ExecuteNonQuery();
+            string query = $"SELECT car_id FROM cars WHERE car_name = '{car.Name}' AND car_price = '{car.Price}' AND car_mileage = '{car.MileAge}' AND car_type = '{car.CarType}' AND car_imageurl = '{car.ImageUrl}'";
+            using (var cmd2 = new SqlCommand(query, connection))
             {
-                var reader = cmd.ExecuteReader();
-                carWasAdd = reader["car_id"].ToString();
+                carWasAdd = cmd2.ExecuteScalar().ToString();
+                cmd2.ExecuteNonQuery();
             }
-
-
+            
             return carWasAdd;
         }
 
@@ -67,9 +67,7 @@ namespace AppDataBase
                     advertisementWasAdd = true;
                 }
             }
-
             
-
             closeConnection();
 
             return advertisementWasAdd;
@@ -96,21 +94,30 @@ namespace AppDataBase
             return carWasUpdated;
         }
 
-        public bool DeleateCar(Car car)
+        public bool DeleteCar(Car car)
         {
             bool carWasDeleated = false;
             var connection = getConnection();
 
             openConnection();
 
-            string deleteQuery = "DELETE FROM Recipe WHERE Name_recipe = @Name_recipe";
-            var cmd = new SqlCommand(deleteQuery, connection);
+            string deleteAdvertiseQuery = $"DELETE FROM advertisements WHERE advertisements_id = '{car.Id}'";
+            var cmdAdvertise = new SqlCommand(deleteAdvertiseQuery, connection);
 
 
-            if (cmd.ExecuteNonQuery() == 1)
+            if (cmdAdvertise.ExecuteNonQuery() == 1)
             {
-                carWasDeleated = true;
+                string deleteCarQuery = $"DELETE FROM cars WHERE car_id = '{car.CarId}'";
+                var cmdCar = new SqlCommand(deleteCarQuery, connection);
+
+
+                if (cmdCar.ExecuteNonQuery() == 1)
+                {
+                    carWasDeleated = true;
+                }
             }
+
+            
 
             closeConnection();
 
@@ -121,8 +128,7 @@ namespace AppDataBase
         {
             ReturnCars returnCars = new()
             {
-                carWasAdd = false,
-                cars = new Car[9]
+                carWasAdd = false
             };
 
             var connection = getConnection();
@@ -134,9 +140,11 @@ namespace AppDataBase
 
             string advertiseQuery = "SELECT advertisements_id, advertisements_car, advertisements_views, advertisements_author FROM advertisements";
             var advertiseCmd = new SqlCommand(advertiseQuery, connection);
+            
             advertiseAdapter.SelectCommand = advertiseCmd;
             advertiseAdapter.Fill(advertiseDT);
 
+            returnCars.cars = new Car[advertiseDT.Rows.Count];
             for (int i = 0; i < advertiseDT.Rows.Count; i++)
             {
                 returnCars.cars[i].Id = advertiseDT.Rows[i]["advertisements_id"].ToString();
@@ -147,6 +155,7 @@ namespace AppDataBase
 
             SqlDataAdapter carAdapter = new();
             DataTable carDT = new();
+            advertiseCmd.ExecuteNonQuery();
 
             string carQuery = "SELECT car_name, car_price, car_mileage, car_type, car_imageurl FROM cars";
             var carCmd = new SqlCommand(carQuery, connection);
@@ -162,6 +171,8 @@ namespace AppDataBase
                 returnCars.cars[i].ImageUrl = carDT.Rows[i]["car_imageurl"].ToString();
 
             }
+            carCmd.ExecuteNonQuery();
+
 
             returnCars.carWasAdd = true;
 
