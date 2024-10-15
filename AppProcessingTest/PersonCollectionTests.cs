@@ -14,7 +14,6 @@ namespace AppProcessingTest
                 Name = "Test User",
                 Login = "testlogin",
                 Password = "password123",
-                Views = 100
             };
             personCollection.AddPerson(person);
 
@@ -61,7 +60,6 @@ namespace AppProcessingTest
                 Name = "Test User",
                 Login = "existinglogin",
                 Password = "password123",
-                Views = 100
             };
             personCollection.AddPerson(person);
 
@@ -82,14 +80,13 @@ namespace AppProcessingTest
                 Name = "New User",
                 Login = "newuser",
                 Password = "newpassword",
-                Views = 50
             };
 
             // Act
-            bool result = personCollection.AddPerson(person);
+            personCollection.AddPerson(person);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.IsTrue(personCollection.personWasAdd);
         }
     }
 }

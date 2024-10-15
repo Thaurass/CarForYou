@@ -11,7 +11,6 @@ namespace AppProcessingTest
             CarAdvertisements carAdvertisements = CarAdvertisements.Instance;
             AdvertisementElement car = new AdvertisementElement()
             {
-                Id = "123",
                 Name = "Test Car",
                 Price = "10000",
                 MileAge = "15000",
@@ -22,10 +21,10 @@ namespace AppProcessingTest
             };
 
             // Act
-            bool result = carAdvertisements.AddCar(car);
+            carAdvertisements.AddCar(car);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.IsTrue(carAdvertisements.carWasAdd);
         }
 
         [Test]
@@ -59,10 +58,10 @@ namespace AppProcessingTest
             };
 
             // Act
-            bool result = carAdvertisements.UpdateOneCar(car);
+            carAdvertisements.UpdateOneCar(car);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.IsFalse(carAdvertisements.carsWasUpdated);
         }
 
         [Test]
@@ -88,10 +87,10 @@ namespace AppProcessingTest
             car.Price = ""; // Неправильное значение
 
             // Act
-            bool result = carAdvertisements.UpdateOneCar(car);
+            carAdvertisements.UpdateOneCar(car);
 
             // Assert
-            Assert.IsFalse(result); // В зависимости от реализации, ожидаем, что результат будет false
+            Assert.IsFalse(carAdvertisements.carsWasUpdated); // В зависимости от реализации, ожидаем, что результат будет false
         }
     }
 }

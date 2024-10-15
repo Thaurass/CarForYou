@@ -35,18 +35,22 @@
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.RowSpan="3"
                                     Source="{Binding ImageUrl}"
+                                    Margin="5"
                                     Aspect="AspectFill"
                                     HeightRequest="60"
                                     WidthRequest="60" />        
                                 <Label Grid.Column="1"
+                                    Margin="10,1"
                                     Text="{Binding Name}"
                                     FontAttributes="Bold" />
                                 <Label Grid.Row="1"
+                                    Margin="10,1"
                                     Grid.Column="1"
                                     Text="{Binding Price, StringFormat='Цена: {0}'}"
                                     FontAttributes="Italic"
                                     VerticalOptions="End" />
                                 <Label Grid.Row="2"
+                                    Margin="10,1"
                                     Grid.Column="1"
                                     Text="{Binding MileAge, StringFormat='Пробег: {0}'}"
                                     FontAttributes="Italic"

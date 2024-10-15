@@ -11,7 +11,9 @@ namespace AppProcessing
         private static PersonCollection? _instance;
         public static PersonCollection Instance => _instance ??= new PersonCollection();
 
-        private IList<PersonElement> Persons { get; set; } = new ObservableCollection<PersonElement>();
+        public bool personWasAdd;
+
+        public IList<PersonElement> Persons { get; set; } = new ObservableCollection<PersonElement>();
         public PersonElement CurrentSession = new();
         private PersonDB personDB = new();
 
@@ -59,30 +61,28 @@ namespace AppProcessing
             return newUsers.userWasAdd;
         }
 
-        public bool AddPerson(PersonElement element)
+        async public Task AddPerson(PersonElement element)
         {
             User user = new User();
             user.Name = element.Name;
             user.Login = element.Login;
             user.Password = element.Password;
 
-            bool personWasAdd = personDB.AddUser(user);
+            personWasAdd = await Task.Run(() => personDB.AddUser(user));
             updateAllPersons();
 
-            return personWasAdd;
         }
 
-        public bool UpdateOnePerson(PersonElement element)
+        async public Task UpdateOnePerson(PersonElement element)
         {
             User user = new User();
             user.Name = element.Name;
             user.Login = element.Login;
             user.Password = element.Password;
 
-            bool personWasUpdated = personDB.UpdateUser(user);
+            bool personWasUpdated = await Task.Run(() => personDB.UpdateUser(user));
             updateAllPersons();
 
-            return personWasUpdated;
         }
     }
 }

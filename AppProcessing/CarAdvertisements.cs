@@ -10,6 +10,10 @@ namespace AppProcessing
         public static CarAdvertisements Instance => _instance ??= new CarAdvertisements();
         //"C:\\Users\\xj48v\\Burn2Code\\CarForYou\\Interface\\src\\car.jpg"
 
+        public bool carWasAdd;
+        public bool carsWasUpdated;
+        public bool carsWasDeleate;
+
         public IList<AdvertisementElement> Cars { get; set;  } = new ObservableCollection<AdvertisementElement>();
         AdvertisementDB advertisementDB = new();
 
@@ -53,7 +57,7 @@ namespace AppProcessing
             car.ImageUrl = element.ImageUrl;
             car.AuthorLogin = element.AuthorLogin;
 
-            bool carWasAdd = await Task.Run(() => advertisementDB.AddAdvertisement(car));
+            carWasAdd = await Task.Run(() => advertisementDB.AddAdvertisement(car));
             updateAllCars();
 
         }
@@ -70,7 +74,7 @@ namespace AppProcessing
             car.ImageUrl = element.ImageUrl;
             car.AuthorLogin = element.AuthorLogin;
 
-            bool carsWasUpdated = await Task.Run(() => advertisementDB.UpdateCar(car));
+            carsWasUpdated = await Task.Run(() => advertisementDB.UpdateCar(car));
             updateAllCars();
 
         }
@@ -88,7 +92,7 @@ namespace AppProcessing
             car.ImageUrl = element.ImageUrl;
             car.AuthorLogin = element.AuthorLogin;
 
-            bool carsWasDeleate = await Task.Run(() => advertisementDB.DeleteCar(car));
+            carsWasDeleate = await Task.Run(() => advertisementDB.DeleteCar(car));
             updateAllCars();
 
         }
