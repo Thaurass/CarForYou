@@ -5,7 +5,7 @@ namespace AppProcessingTest
     public class CarAdvertisementsTests
     {
         [Test]
-        public void AddCar_CarIsAdded_ReturnsTrue()
+        public async Task AddCar_CarIsAdded_ReturnsTrue()
         {
             // Arrange
             CarAdvertisements carAdvertisements = CarAdvertisements.Instance;
@@ -22,10 +22,10 @@ namespace AppProcessingTest
             };
 
             // Act
-            bool result = carAdvertisements.AddCar(car);
+            await carAdvertisements.AddCar(car);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.IsTrue(carAdvertisements.carWasAdd);
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace AppProcessingTest
         }
 
         [Test]
-        public void UpdateOneCar_CarDoesNotExist_ReturnsFalse()
+        public async Task UpdateOneCar_CarDoesNotExist_ReturnsFalse()
         {
             // Arrange
             CarAdvertisements carAdvertisements = CarAdvertisements.Instance;
@@ -59,14 +59,14 @@ namespace AppProcessingTest
             };
 
             // Act
-            bool result = carAdvertisements.UpdateOneCar(car);
+            await carAdvertisements.UpdateOneCar(car);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.IsFalse(carAdvertisements.carsWasUpdated);
         }
 
         [Test]
-        public void UpdateOneCar_WithInvalidData_ReturnsFalse()
+        public async Task UpdateOneCar_WithInvalidData_ReturnsFalse()
         {
             // Arrange
             CarAdvertisements carAdvertisements = CarAdvertisements.Instance;
@@ -88,10 +88,10 @@ namespace AppProcessingTest
             car.Price = ""; // Неправильное значение
 
             // Act
-            bool result = carAdvertisements.UpdateOneCar(car);
+            await carAdvertisements.UpdateOneCar(car);
 
             // Assert
-            Assert.IsFalse(result); // В зависимости от реализации, ожидаем, что результат будет false
+            Assert.IsFalse(carAdvertisements.carsWasUpdated); // В зависимости от реализации, ожидаем, что результат будет false
         }
     }
 }
