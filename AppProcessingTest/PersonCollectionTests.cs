@@ -83,10 +83,10 @@ namespace AppProcessingTest
             };
 
             // Act
-            bool result = personCollection.AddPerson(person);
+            personCollection.AddPerson(person);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.IsTrue(personCollection.personWasAdd);
         }
     }
 }
